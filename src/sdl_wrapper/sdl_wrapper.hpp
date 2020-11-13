@@ -293,6 +293,15 @@ namespace sdl_wrapper {
         }
 
         /**
+         * @brief Sets the new vieport.
+         */
+        void set_viewport(const SDL_Rect* rect) const {
+            if (SDL_RenderSetViewport(m_renderer.get(), rect) < 0) {
+                throw std::runtime_error("Could'nt set viewport! SDL_Error: "s + SDL_GetError());
+            }
+        }
+
+        /**
          * @brief Redirect render operations to a texture.
          */
         void set_render_target(const SDLTexture &texture) const {
