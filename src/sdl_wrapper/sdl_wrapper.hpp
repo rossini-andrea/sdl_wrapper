@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef __SDL_WRAPPER_HPP
+#define __SDL_WRAPPER_HPP
+
 #include <memory>
 #include <functional>
 #include <stdexcept>
@@ -384,3 +388,5 @@ namespace sdl_wrapper {
         }
     };
 }
+
+#endif
