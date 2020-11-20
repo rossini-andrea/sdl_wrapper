@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "sdl_wrapper.h"
+#include "sdl_wrapper.hpp"
 #include "SDL_ttf.h"
 
 namespace sdl_wrapper {
@@ -130,6 +130,41 @@ if(!font) {
             return SDLSurface(surface);
         }
 
+        /**
+         * @brief Gets the line skip of this font.
+         *
+         * @return Line skip.
+        */
+        int line_skip() {
+            return TTF_FontLineSkip(m_font);
+        }
+
+        /**
+         * @brief Gets the max ascent of this font.
+         *
+         * @return max ascent
+        */
+        int ascent() {
+            return TTF_FontAscent(m_font);
+        }
+
+        /**
+         * @brief Gets the max descent of this font.
+         *
+         * @return max descent
+        */
+        int descent() {
+            return TTF_FontDescent(m_font);
+        }
+
+        /**
+         * @brief Gets the max height of this font.
+         *
+         * @return max height
+        */
+        int height() {
+            return TTF_FontHeight(m_font);
+        }
     };
 
 }
