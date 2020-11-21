@@ -227,15 +227,17 @@ namespace sdl_wrapper {
             }
         };
 
-        std::unique_ptr<SDL_Renderer, Deleter> m_renderer;
+        std::shared_ptr<SDL_Renderer> m_renderer;
 
     public:
         SDLRenderer(SDL_Renderer* renderer) :
-            m_renderer(renderer)
+            m_renderer(renderer, Deleter())
         {
         }
 
         ~SDLRenderer() = default;
+        SDLRenderer(const SDLRenderer& other) = default;
+        SDLRenderer& operator=(const SDLRenderer&) = default;
         SDLRenderer(SDLRenderer&& other) = default;
         SDLRenderer& operator=(SDLRenderer&&) = default;
 
