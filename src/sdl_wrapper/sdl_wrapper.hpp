@@ -192,16 +192,19 @@ namespace sdl_wrapper {
             }
         };
     private:
-        std::unique_ptr<SDL_Texture, Deleter> m_texture;
+        std::shared_ptr<SDL_Texture> m_texture;
 
     public:
         SDLTexture(SDL_Texture* texture) :
-            m_texture(texture)
+            m_texture(texture, Deleter())
         {
         }
-        SDLTexture(SDLTexture&&) = default;
-        SDLTexture& operator=(SDLTexture&&) = default;
+        SDLTexture() = default;
         ~SDLTexture() = default;
+        SDLTexture(const SDLTexture& other) = default;
+        SDLTexture& operator=(const SDLTexture&) = default;
+        SDLTexture(SDLTexture&& other) = default;
+        SDLTexture& operator=(SDLTexture&&) = default;
 
         /**
          * @brief Retrieves info about this texture.
@@ -227,15 +230,17 @@ namespace sdl_wrapper {
             }
         };
 
-        std::unique_ptr<SDL_Renderer, Deleter> m_renderer;
+        std::shared_ptr<SDL_Renderer> m_renderer;
 
     public:
         SDLRenderer(SDL_Renderer* renderer) :
-            m_renderer(renderer)
+            m_renderer(renderer, Deleter())
         {
         }
 
         ~SDLRenderer() = default;
+        SDLRenderer(const SDLRenderer& other) = default;
+        SDLRenderer& operator=(const SDLRenderer&) = default;
         SDLRenderer(SDLRenderer&& other) = default;
         SDLRenderer& operator=(SDLRenderer&&) = default;
 
@@ -301,7 +306,7 @@ namespace sdl_wrapper {
          */
         void set_viewport(const SDL_Rect* rect) const {
             if (SDL_RenderSetViewport(m_renderer.get(), rect) < 0) {
-                throw std::runtime_error("Could'nt set viewport! SDL_Error: "s + SDL_GetError());
+                throw std::runtime_error("Couldn't set viewport! SDL_Error: "s + SDL_GetError());
             }
         }
 
