@@ -219,6 +219,13 @@ namespace sdl_wrapper {
         void query(Uint32 *format, int *access, int *w, int *h) {
             SDL_QueryTexture(m_texture.get(), format, access, w, h);
         }
+
+        /**
+         * @brief Sets the color modifier.
+         */
+        void set_color_mod(Uint8 r, Uint8 g, Uint8 b) {
+            SDL_SetTextureColorMod(m_texture.get(), r, g, b);
+        }
     };
 
     /**
