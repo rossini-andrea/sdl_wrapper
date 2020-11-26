@@ -142,6 +142,13 @@ namespace sdl_wrapper {
         }
 
         /**
+         * @brief Copy pixel data to a destination surface.
+         */
+        void blit_to(const SDLSurface &destination, SDL_Rect *src_rect, SDL_Rect *dest_rect) const {
+            SDL_BlitSurface(m_surface.get(), src_rect, destination.m_surface.get(), dest_rect);
+        }
+
+        /**
          * @brief Locks this image. Can be used with `std` locking functions
          * and classes.
          */
