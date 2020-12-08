@@ -216,15 +216,22 @@ namespace sdl_wrapper {
         /**
          * @brief Retrieves info about this texture.
          */
-        void query(Uint32 *format, int *access, int *w, int *h) {
+        void query(Uint32 *format, int *access, int *w, int *h) const {
             SDL_QueryTexture(m_texture.get(), format, access, w, h);
         }
 
         /**
          * @brief Sets the color modifier.
          */
-        void set_color_mod(Uint8 r, Uint8 g, Uint8 b) {
+        void set_color_mod(Uint8 r, Uint8 g, Uint8 b) const {
             SDL_SetTextureColorMod(m_texture.get(), r, g, b);
+        }
+
+        /**
+         * @brief Sets the alpha modifier.
+         */
+        void set_alpha_mod(Uint8 a) const {
+            SDL_SetTextureAlphaMod(m_texture.get(), a);
         }
     };
 
@@ -299,6 +306,16 @@ namespace sdl_wrapper {
          */
         void set_draw_color(Uint8 r, Uint8 g, Uint8 b, Uint8 a) const {
             SDL_SetRenderDrawColor(m_renderer.get(), r, g, b, a);
+        }
+
+        /**
+         * @brief Get current selected color for draw operations.
+         */
+        SDL_Color get_draw_color() const {
+            SDL_Color result;
+            SDL_GetRenderDrawColor(m_renderer.get(),
+                &result.r, &result.g, &result.b, &result.a);
+            return result;
         }
 
         /**
